@@ -33,10 +33,6 @@ hex_file = ""
 fuse = False
 
 
-def readlines(process, Queue):
-    while process.poll() is None:
-        Queue.put(process.stderr.readline())
-
 
 
 def openfile():
@@ -169,26 +165,7 @@ def program():
     Terminal_window.see("end")
     Terminal_window.config(state=DISABLED)
 
-    """
-    queue = Queue()
-    thread = Thread(target=readlines, args=(process, queue))
-    thread.start()
-    root.after(100,updateLines(queue))
 
-
-def updateLines():
-    try:
-        line = Queue.get(False) # False for non-blocking, raises Empty if empty
-        Terminal_window.config(state=NORMAL)
-        Terminal_window.insert(END, line)
-        Terminal_window.config(state=DISABLED)
-    except Empty:
-        pass
-
-    if process.poll() is None:
-        root.after(100,updateLines)
-
-"""
 
 def fuse_deact():
     global default_color
