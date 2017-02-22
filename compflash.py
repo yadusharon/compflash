@@ -280,6 +280,13 @@ def write_fuse():
     Terminal_window.see("end")
     Terminal_window.config(state=DISABLED)
 
+def key_comp():
+    if button_compile['state']== NORMAL :
+        Compile()
+
+def key_flash():
+    if button_flash['state'] == NORMAL :
+        program()
 
 
 
@@ -368,8 +375,19 @@ label_frequency= Label(root,text="Frequency")
 label_programmer= Label(root,text="Programmer")
 label_lfuse= Label(root,text="Low fuse")
 label_hfuse= Label(root,text="High fuse")
+label_key_comp= Label(root, text= "Compile : Ctrl+R")
+label_key_flash= Label(root, text= "Flash : Ctrl+F")
+
+
 
 fuse_deact()
+
+###----------Keys press-----------###
+
+root.bind('<Control-r>', lambda e: key_comp())
+
+root.bind('<Control-f>', lambda e: key_flash())
+
 
 #####-------------- grid------------
 
@@ -401,9 +419,9 @@ button_write_fuse.grid(row = 3, column=5, pady = 5,padx=2, sticky=W)
 Terminal_window.grid(row=4, column=0, columnspan=6, padx=5,pady=5)
 Terminal_window.update_idletasks()
 Terminal_window.config(state=DISABLED)
-#Scrollbar(root).grid(row=3,column=5,sticky=E,padx=5)
 
-
+label_key_comp.grid(row=5, column = 0, padx=7, columnspan=2, sticky = W)
+label_key_flash.grid(row=5, column = 1, padx=7, columnspan=2)
 
 
 
