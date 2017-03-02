@@ -71,7 +71,17 @@ def Compile():
     frequency = frequency_entry.get()
     device=device_name.lower()
 
+    if not file_bare:
+        Terminal_window.config(state=NORMAL)
+        Terminal_window.insert(END,"Please select file\n")
+        Terminal_window.config(state=DISABLED)
+        return
 
+    if not device_name:
+        Terminal_window.config(state=NORMAL)
+        Terminal_window.insert(END,"Please select chip\n")
+        Terminal_window.config(state=DISABLED)
+        return
 
 
 
@@ -137,14 +147,27 @@ def program():
     prgrmr= ""
 
     device_name = Chip_combobox.get()
+    if not device_name:
+        Terminal_window.config(state=NORMAL)
+        Terminal_window.insert(END,"Please select chip\n")
+        Terminal_window.config(state=DISABLED)
+        return
+
     for i in range(0,len(chip_list)):
         if chip_list[i][0]== device_name:
             part=chip_list[i][1]
 
     prgrmr_name = programmer_combobox.get()
+    if not prgrmr_name:
+        Terminal_window.config(state=NORMAL)
+        Terminal_window.insert(END,"Please select programmer\n")
+        Terminal_window.config(state=DISABLED)
+        return
+
     for i in range(0,len(programmer_list)):
         if programmer_list[i][0]== prgrmr_name:
             prgrmr=programmer_list[i][1]
+
 
     Terminal_window.config(state=NORMAL)
 
@@ -271,7 +294,7 @@ def write_fuse():
     Terminal_window.see("end")
 
     fuse_string = "avrdude -c "+prgrmr+" -p "+part+lf_string+hf_string
-    process = subprocess.Popen(fuse_chip, shell=True,stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    process = subprocess.Popen(fuse_string, shell=True,stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 
     #process.wait()
     stdout, er = process.communicate()
