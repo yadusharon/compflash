@@ -76,19 +76,24 @@ def Compile():
     if not file_bare:
         Terminal_window.config(state=NORMAL)
         Terminal_window.insert(END,"Please select file\n")
+        Terminal_window.see("end")
         Terminal_window.config(state=DISABLED)
         return
 
     if not device_name:
         Terminal_window.config(state=NORMAL)
         Terminal_window.insert(END,"Please select chip\n")
+        Terminal_window.see("end")
         Terminal_window.config(state=DISABLED)
         return
 
 
 
-    #make_object = "avr-gcc -g -Os -mmcu=" + device + " -c "+filepath
-    make_object= "avr-gcc -g -Os -mmcu="+device+" -D_FCPU="+str(frequency)+" -c "+filepath
+    if frequency== "":
+        make_object = "avr-gcc -g -Os -mmcu=" + device + " -c "+filepath
+    else:
+        make_object= "avr-gcc -g -Os -mmcu="+device+" -DF_CPU="+str(frequency)+" -c "+filepath
+
     make_link = "avr-gcc -g -mmcu="+device+" -o "+elf_file+" "+object_file
     make_hex = "avr-objcopy -j .text -j .data -O ihex "+elf_file+ " "+ hex_file
 
@@ -152,6 +157,7 @@ def program():
     if not device_name:
         Terminal_window.config(state=NORMAL)
         Terminal_window.insert(END,"Please select chip\n")
+        Terminal_window.see("end")
         Terminal_window.config(state=DISABLED)
         return
 
@@ -163,6 +169,7 @@ def program():
     if not prgrmr_name:
         Terminal_window.config(state=NORMAL)
         Terminal_window.insert(END,"Please select programmer\n")
+        Terminal_window.see("end")
         Terminal_window.config(state=DISABLED)
         return
 
