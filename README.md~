@@ -8,4 +8,3 @@ Compflash is just a gui for avr-gcc and avrdude written in python2.7
 * avr-libc
 * binutils-avr
 * avrdude
-* python-tk
